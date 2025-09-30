@@ -9,3 +9,8 @@ body {
  color: white;
  text-align: center;
 }
+
+#navbar {
+    display: flex;
+    flex-direction: row;
+}
