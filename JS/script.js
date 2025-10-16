@@ -64,7 +64,8 @@ window.addEventListener("load", function() {
       console.log(data);
 
       // Build scoreboard HTML
-      scoreboardEl.innerHTML = data.games
+      scoreboardEl.innerHTML = "<h1>Today's scores:</h1>";
+      scoreboardEl.innerHTML += data.games
         .map(game => {
           const away = game.awayTeam.abbrev;
           const home = game.homeTeam.abbrev;

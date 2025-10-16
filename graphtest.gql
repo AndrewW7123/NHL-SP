@@ -1,5 +1,0 @@
-curl --location --request POST 'https://playback.sportradar.com/graphql' \
---header 'Content-Type: application/json' \
---data-raw '{"query":"query getRecordings($league: String){  recordings(league: $league){    id    
-scheduled    meta    league    start    end    title    apis {      name      description      
-formats    }  }}","variables":{"league":"nhl"}}'
