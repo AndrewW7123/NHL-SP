@@ -3,6 +3,7 @@ window.addEventListener("load", function() {
   const proxy = "https://corsproxy.io/?";
   const API_URL = "https://api-web.nhle.com/v1/scoreboard/now";
   const API_scores_now = "https://api-web.nhle.com/v1/score/2025-10-14";
+  const API_teams = "https://api-web.nhle.com/v1/standings/now";
 
   /*
   async function getScoreboard() {
@@ -11,7 +12,7 @@ window.addEventListener("load", function() {
 
     try {
       const response = await fetch(proxy + API_URL);
-      if (!response.ok) throw new Error("Failed to fetch NHL data");
+      if (!response.ok) throw new Error("Failed to fetch scoreboard data");
 
       const data = await response.json();
 
@@ -58,7 +59,7 @@ window.addEventListener("load", function() {
 
     try {
       const response = await fetch(proxy + API_scores_now);
-      if (!response.ok) throw new Error("Failed to fetch NHL data");
+      if (!response.ok) throw new Error("Failed to fetch score data");
 
       const data = await response.json();
       console.log(data);
@@ -89,5 +90,43 @@ window.addEventListener("load", function() {
     }
   }
 
-  getScores();
+
+  async function getStandings() {
+    
+    const teamsMain = document.getElementById("teams");
+    teamsMain.innerHTML = "<p>Loading...</p>";
+
+    try {
+      const response = await fetch(proxy + API_teams);
+      if (!response.ok) throw new Error("Failed to fetch teams data");
+
+      const data = await response.json();
+      console.log(data);
+
+      // Build scoreboard HTML
+      teamsMain.innerHTML = "<h1>NHL Teams:</h1>";
+      teamsMain.innerHTML += data.standings
+        .map(standing => {
+          const name = standing.teamAbbrev.default;
+          const wins = standing.regulationWins ?? 0;
+          const losses = standing.losses ?? 0;
+          const imgSrc = standing.teamLogo;
+          return `
+            <div class="game">
+              <span><strong>${name}</strong></span>
+              <span>Wins: ${wins}</span>
+              <span>Losses: ${losses}</span>
+              <span><img style="width:3rem" src=${imgSrc}></span>
+            </div>
+          `;
+        })
+        .join("");
+
+    } catch (error) {
+      teamsMain.innerHTML = `<p>Error: ${error.message}</p>`;
+    }
+  }
+
+  //getScores();
+  getStandings();
 });

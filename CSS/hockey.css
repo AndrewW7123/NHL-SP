@@ -46,7 +46,18 @@ h1 {
   align-items: center;
 }
 
+#teams {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
 #scoreboard p {
+  font-size: 32px;
+}
+
+#teams p {
   font-size: 32px;
 }
 
