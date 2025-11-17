@@ -104,24 +104,32 @@ window.addEventListener("load", function() {
       console.log(data);
 
       // Build scoreboard HTML
-      teamsMain.innerHTML = "<h1>NHL Teams:</h1>";
-      teamsMain.innerHTML += data.standings
-        .map(standing => {
-          const name = standing.teamAbbrev.default;
-          const wins = standing.regulationWins ?? 0;
-          const losses = standing.losses ?? 0;
-          const imgSrc = standing.teamLogo;
-          return `
+      i = 0;
+      id = 0;
+      while (i < 32) {
+        if (i == 3 || i == 6 || i == 9 || i == 12 || i == 15 || i == 18 || i == 21 || i == 24 || i == 27 || i == 30) {
+          id += 1;
+        }
+        teamId = "teams" + id;
+        const standingsMain = data.standings;
+        teamName = standingsMain.teamAbbrev;
+        wins = standingsMain.regulationPlusOtWins ?? 0;
+        losses = standingsMain.losses ?? 0;
+        imgSrc = standingsMain.teamLogo;
+        //
+        // Trying to get the team divs to flexbox in rows of 3 going down 
+        //
+        document.getElementById(teamId).innerHTML = `<h1>yo</h1>`
+        /*document.getElementById(teamId).innerHTML = `
             <div class="game">
-              <span><strong>${name}</strong></span>
+              <span><strong>${teamName}</strong></span>
               <span>Wins: ${wins}</span>
               <span>Losses: ${losses}</span>
               <span><img style="width:3rem" src=${imgSrc}></span>
             </div>
-          `;
-        })
-        .join("");
-
+          `;*/
+        
+      }
     } catch (error) {
       teamsMain.innerHTML = `<p>Error: ${error.message}</p>`;
     }

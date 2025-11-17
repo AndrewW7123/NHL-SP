@@ -53,6 +53,12 @@ h1 {
   align-items: center;
 }
 
+#teamsRows {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 #scoreboard p {
   font-size: 32px;
 }
