@@ -1,5 +1,5 @@
 /*
-*
+* CSS file for NHL-SP
 */
 body {
   font-family: Arial, sans-serif;
@@ -10,7 +10,8 @@ body {
 }
 
 #header {
-  font-size: 18px;
+  font-family: 'Teko', sans-serif;
+  font-size: 26px;
   display: flex;
   flex-direction: row;
   justify-content: left;
@@ -26,7 +27,7 @@ a {
 
 a:hover {
   text-decoration: underline;
-  color: #b5b5b5;
+  color: #fffefeb4;
   transition: 350ms;
 }
 
@@ -53,10 +54,11 @@ h1 {
   align-items: center;
 }
 
-#teamsRows {
+.teamsRows {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  gap: 3rem;
 }
 
 #scoreboard p {
@@ -73,9 +75,21 @@ h1 {
   border-radius: 12px;
   width: 300px;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.414);
+  font-size: 18px;
 }
 
 .game span {
   display: block;
   margin: 4px 0;
+}
+
+#teamName {
+  font-size: 20px;
+}
+
+@font-face {
+  font-family: 'Talero';
+  src: url('../fonts/talero.regular.otf') format('opentype');
+  font-style: normal;
+  font-display: swap;
 }

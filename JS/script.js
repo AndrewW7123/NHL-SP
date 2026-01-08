@@ -94,7 +94,7 @@ window.addEventListener("load", function() {
   async function getStandings() {
     
     const teamsMain = document.getElementById("teams");
-    teamsMain.innerHTML = "<p>Loading...</p>";
+    teamsMain.innerHTML = "<p id='load'>Loading...</p>";
 
     try {
       const response = await fetch(proxy + API_teams);
@@ -106,33 +106,35 @@ window.addEventListener("load", function() {
       // Build scoreboard HTML
       i = 0;
       id = 0;
+      document.getElementById("teams").innerHTML += `<div class="teamsRows" id="teams${id}"></div>`;
       while (i < 32) {
         if (i == 3 || i == 6 || i == 9 || i == 12 || i == 15 || i == 18 || i == 21 || i == 24 || i == 27 || i == 30) {
           id += 1;
+          document.getElementById("teams").innerHTML += `<div class="teamsRows" id="teams${id}"></div>`;
         }
         teamId = "teams" + id;
-        const standingsMain = data.standings;
-        teamName = standingsMain.teamAbbrev;
+        standingsMain = data.standings[i];
+        teamName = standingsMain.teamName.default;
         wins = standingsMain.regulationPlusOtWins ?? 0;
         losses = standingsMain.losses ?? 0;
         imgSrc = standingsMain.teamLogo;
         //
         // Trying to get the team divs to flexbox in rows of 3 going down 
         //
-        document.getElementById(teamId).innerHTML = `<h1>yo</h1>`
-        /*document.getElementById(teamId).innerHTML = `
-            <div class="game">
-              <span><strong>${teamName}</strong></span>
-              <span>Wins: ${wins}</span>
-              <span>Losses: ${losses}</span>
-              <span><img style="width:3rem" src=${imgSrc}></span>
-            </div>
-          `;*/
-        
+        document.getElementById(teamId).innerHTML += `
+          <div class="game">
+            <a id="teamName" href=""><strong>${teamName}</strong></a>
+            <span style="color: #0eea12ff">Wins: ${wins}</span>
+            <span style="color: #e70a0aff">Losses: ${losses}</span>
+            <span><img style="width:6rem" src=${imgSrc}></span>
+          </div>
+        `;
+        i += 1;
       }
     } catch (error) {
       teamsMain.innerHTML = `<p>Error: ${error.message}</p>`;
     }
+    document.getElementById("load").remove();
   }
 
   //getScores();
