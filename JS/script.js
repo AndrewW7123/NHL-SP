@@ -92,7 +92,6 @@ window.addEventListener("load", function() {
 
 
   async function getStandings() {
-    
     const teamsMain = document.getElementById("teams");
     teamsMain.innerHTML = "<p id='load'>Loading...</p>";
 
@@ -118,12 +117,12 @@ window.addEventListener("load", function() {
         wins = standingsMain.regulationPlusOtWins ?? 0;
         losses = standingsMain.losses ?? 0;
         imgSrc = standingsMain.teamLogo;
-        //
-        // Trying to get the team divs to flexbox in rows of 3 going down 
-        //
+        teamPage = standingsMain.teamAbbrev.default;
+
+        // Put team divs into flexboxes in rows of 3 going down for 10 rows
         document.getElementById(teamId).innerHTML += `
           <div class="game">
-            <a id="teamName" href=""><strong>${teamName}</strong></a>
+            <a id="teamName" href="teamPages/${teamPage}.html"><strong>${teamName}</strong></a>
             <span style="color: #0eea12ff">Wins: ${wins}</span>
             <span style="color: #e70a0aff">Losses: ${losses}</span>
             <span><img style="width:6rem" src=${imgSrc}></span>
@@ -137,6 +136,31 @@ window.addEventListener("load", function() {
     document.getElementById("load").remove();
   }
 
+
+  async function displayTeam() {
+    const teamsMain = document.getElementById("team");
+    teamsMain.innerHTML = "<p id='load'>Loading...</p>";
+
+    try {
+      const response = await fetch(proxy + API_teams);
+      if (!response.ok) throw new Error("Failed to fetch teams data");
+
+      const data = await response.json();
+      console.log(data);
+
+      // Get and display team info based on page
+      i = 0;
+      while (i < 32) {
+        
+        i += 1;
+      }
+    } catch (error) {
+      teamsMain.innerHTML = `<p>Error: ${error.message}</p>`;
+    }
+    document.getElementById("load").remove();
+  }
+
+
   //getScores();
-  getStandings();
+  //getStandings();
 });
